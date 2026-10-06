@@ -1,0 +1,186 @@
+{
+  "info": {
+    "_postman_id": "c101-contact-app-collection",
+    "name": "Contact App - API Testing",
+    "description": "Collection of API requests covering all required CRUD and edge-case validation scenarios for the Contact Management System assignment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Create Contact - Success (201)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"contactId\": \"C101\",\n  \"name\": \"Alice Wonderland\",\n  \"phone\": \"9876543210\",\n  \"email\": \"alice@example.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/contacts",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["contacts"]
+        }
+      }
+    },
+    {
+      "name": "2. Get All Contacts (200)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/contacts",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["contacts"]
+        }
+      }
+    },
+    {
+      "name": "3. Get Contact by ID (200)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/contacts/C101",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["contacts", "C101"]
+        }
+      }
+    },
+    {
+      "name": "4. Update Contact (200)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Alice Smith\",\n  \"phone\": \"9998887776\",\n  \"email\": \"alice.smith@example.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/contacts/C101",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["contacts", "C101"]
+        }
+      }
+    },
+    {
+      "name": "5. Delete Contact (200)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/contacts/C101",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["contacts", "C101"]
+        }
+      }
+    },
+    {
+      "name": "6. Error: Invalid Phone (400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"contactId\": \"C102\",\n  \"name\": \"Bob\",\n  \"phone\": \"12345\",\n  \"email\": \"bob@example.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/contacts",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["contacts"]
+        }
+      }
+    },
+    {
+      "name": "7. Error: Invalid Email (400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"contactId\": \"C103\",\n  \"name\": \"Charlie\",\n  \"phone\": \"9876543211\",\n  \"email\": \"not-a-valid-email\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/contacts",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["contacts"]
+        }
+      }
+    },
+    {
+      "name": "8. Error: Duplicate Email or contactId (409)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"contactId\": \"C101\",\n  \"name\": \"Duplicate Person\",\n  \"phone\": \"9123456780\",\n  \"email\": \"alice@example.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/contacts",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["contacts"]
+        }
+      }
+    },
+    {
+      "name": "9. Error: Missing Required Field (400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"contactId\": \"C104\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/contacts",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["contacts"]
+        }
+      }
+    },
+    {
+      "name": "10. Error: Invalid / Non-existent Contact ID (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/contacts/NON_EXISTENT_ID",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["contacts", "NON_EXISTENT_ID"]
+        }
+      }
+    }
+  ]
+}
